@@ -1,0 +1,17 @@
+# Cadence / simulation
+genus.log* 
+genus.cmd*
+xrun.log
+xrun.history
+*.db
+*.vcd
+*.shm/
+fv/
+.rs_dtvt_*
+*.swp
+# Thu vien cong nghe (nang, ban quyen rieng)
+LIBS/
+*.tar
+*.tar.gz
+*.rar
+*.zip

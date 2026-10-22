@@ -1,0 +1,221 @@
+
+ 	 Check Design Report (c)
+	 ------------------- 
+No subdesign's name is greater than 1.5k in length.
+
+ Feedthrough Module(s)
+ -------------------------
+No feed through module in 'ALU'
+
+  Unresolved References & Empty Modules
+  ------------------------------------- 
+No unresolved references in design 'ALU'
+
+No empty modules in design 'ALU'
+
+ Unloaded Pin(s), Port(s)
+ -------------------------
+No unloaded sequential element in 'ALU'
+
+No unloaded port in 'ALU'
+
+ Unloaded Combinational Pin(s)
+ -------------------------------
+design 'ALU' has the following unloaded combinational elements
+pin:ALU/ari_module/inc_unit/F7/g6/z
+pin:ALU/ari_module/dec_unit/D7/g8/z
+Total number of unloaded combinational elements in design 'ALU' : 2
+
+ Assigns
+ ------- 
+Total number of assign statements in design 'ALU' : 0
+
+ Undriven Port(s)/Pin(s)
+ ------------------------
+No undriven combinational pin in 'ALU'
+
+No undriven sequential pin in 'ALU'
+
+No undriven hierarchical pin in 'ALU'
+
+No undriven port in 'ALU'
+
+ Multidriven Port(s)/Pin(s)
+--------------------------
+
+No multidriven combinational pin in 'ALU'
+
+No multidriven sequential pin in 'ALU'
+
+No multidriven hierarchical pin in 'ALU'
+
+No multidriven ports in 'ALU'
+
+No multidriven unloaded nets in 'ALU'
+
+  Constant Pin(s)
+  ----------------
+design 'ALU' has the following constant input combinational pin(s)
+pin:ALU/ari_module/inc_unit/F0/g1/in_1
+pin:ALU/ari_module/inc_unit/F0/g3/in_1
+pin:ALU/ari_module/inc_unit/F1/g1/in_1
+pin:ALU/ari_module/inc_unit/F1/g3/in_1
+pin:ALU/ari_module/inc_unit/F2/g1/in_1
+pin:ALU/ari_module/inc_unit/F2/g3/in_1
+pin:ALU/ari_module/inc_unit/F3/g1/in_1
+pin:ALU/ari_module/inc_unit/F3/g3/in_1
+pin:ALU/ari_module/inc_unit/F4/g1/in_1
+pin:ALU/ari_module/inc_unit/F4/g3/in_1
+pin:ALU/ari_module/inc_unit/F5/g1/in_1
+pin:ALU/ari_module/inc_unit/F5/g3/in_1
+pin:ALU/ari_module/inc_unit/F6/g1/in_1
+pin:ALU/ari_module/inc_unit/F6/g3/in_1
+pin:ALU/ari_module/inc_unit/F7/g1/in_1
+pin:ALU/ari_module/inc_unit/F7/g3/in_1
+pin:ALU/ari_module/dec_unit/D0/g1/in_1
+pin:ALU/ari_module/dec_unit/D0/g4/in_1
+pin:ALU/ari_module/dec_unit/D1/g1/in_1
+pin:ALU/ari_module/dec_unit/D1/g4/in_1
+pin:ALU/ari_module/dec_unit/D2/g1/in_1
+pin:ALU/ari_module/dec_unit/D2/g4/in_1
+pin:ALU/ari_module/dec_unit/D3/g1/in_1
+pin:ALU/ari_module/dec_unit/D3/g4/in_1
+pin:ALU/ari_module/dec_unit/D4/g1/in_1
+pin:ALU/ari_module/dec_unit/D4/g4/in_1
+pin:ALU/ari_module/dec_unit/D5/g1/in_1
+pin:ALU/ari_module/dec_unit/D5/g4/in_1
+pin:ALU/ari_module/dec_unit/D6/g1/in_1
+pin:ALU/ari_module/dec_unit/D6/g4/in_1
+pin:ALU/ari_module/dec_unit/D7/g1/in_1
+pin:ALU/ari_module/dec_unit/D7/g4/in_1
+pin:ALU/logic_module/my_comparator/F0/g3/in_0
+pin:ALU/logic_module/my_comparator/F0/g4/in_0
+pin:ALU/logic_module/my_comparator/F0/g7/in_0
+pin:ALU/logic_module/my_comparator/F0/g10/in_0
+pin:ALU/logic_module/my_comparator/F0/g11/in_0
+Total number of constant combinational pins in design 'ALU' : 37
+
+No constant sequential pin(s) in design 'ALU'
+
+design 'ALU' has the following constant input hierarchical pin(s)
+hpin:ALU/mux_alu_out_flag_43_10/in_1 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_cf_205_10/in_2 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[7] 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[6] 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[5] 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[4] 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[3] 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[2] 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[1] 	 (fanout : 1)
+hpin:ALU/ari_module/SHIFT_unit/mux_shift_out_205_10/in_2[0] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[7] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[6] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[5] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[4] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[3] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[2] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[1] 	 (fanout : 1)
+hpin:ALU/ari_module/inc_unit/b[0] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[7] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[6] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[5] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[4] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[3] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[2] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[1] 	 (fanout : 1)
+hpin:ALU/ari_module/dec_unit/b[0] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_flag_mux_out_67_10/in_7 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[7] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[6] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[5] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[4] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[3] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[2] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[1] 	 (fanout : 1)
+hpin:ALU/ari_module/mux_arith_out_67_10/in_7[0] 	 (fanout : 1)
+hpin:ALU/logic_module/my_comparator/F0/c1 	 (fanout : 1)
+hpin:ALU/logic_module/my_comparator/F0/c2 	 (fanout : 3)
+hpin:ALU/logic_module/my_comparator/F0/c3 	 (fanout : 1)
+hpin:ALU/logic_module/mux_23_20/in_0 	 (fanout : 1)
+hpin:ALU/logic_module/mux_23_20/in_1 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_0[7] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_0[6] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_0[5] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_0[4] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_0[3] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_0[2] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_0[1] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[7] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[6] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[5] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[4] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[3] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[2] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[1] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_6[0] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[7] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[6] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[5] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[4] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[3] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[2] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[1] 	 (fanout : 1)
+hpin:ALU/logic_module/mux_logic_out_21_10/in_7[0] 	 (fanout : 1)
+Total number of constant hierarchical pins in design 'ALU' : 63
+
+No constant connected ports in design 'ALU'
+
+  Preserved instances(s)
+  ----------------
+No preserved combinational instance(s) in design 'ALU'
+No preserved sequential instance(s) in design 'ALU'
+No preserved hierarchical instance(s) in design 'ALU'
+
+  Physical only instances(s)
+  ----------------
+No physical only instance(s) in design 'ALU'
+
+  Logical only instance(s) and linked libcells
+    -----------------------------------------
+No logical only instance(s) in design 'ALU'
+
+Libcells with no corresponding LEF
+----------------------------------
+No libcell(s) found.
+
+LEF cells with no corresponding libcell
+---------------------------------------
+
+No physical (LEF) cells found.
+
+ Summary
+ ------- 
+
+              Name                       Total
+----------------------------------------------
+Unresolved References                        0
+Empty Modules                                0
+Unloaded Port(s)                             0
+Unloaded Sequential Pin(s)                   0
+Unloaded Combinational Pin(s)                2
+Assigns                                      0
+Undriven Port(s)                             0
+Undriven Leaf Pin(s)                         0
+Undriven hierarchical pin(s)                 0
+Multidriven Port(s)                          0
+Multidriven Leaf Pin(s)                      0
+Multidriven hierarchical Pin(s)              0
+Multidriven unloaded net(s)                  0
+Constant Port(s)                             0
+Constant Leaf Pin(s)                        37
+Constant hierarchical Pin(s)                63
+Preserved leaf instance(s)                   0
+Preserved hierarchical instance(s)           0
+Feedthrough Modules(s)                       0
+Libcells with no LEF cell                    0
+Physical (LEF) cells with no libcell         0
+Subdesigns with long module name             0
+Physical only instance(s)                    0
+Logical only instance(s)                     0
+
+  Done Checking the design.
