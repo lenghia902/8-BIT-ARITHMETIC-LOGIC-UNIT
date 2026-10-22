@@ -1,128 +1,109 @@
-# ALU 8-bit (Verilog) – từ RTL đến tổng hợp logic (Cadence Genus, 45 nm)
+8-bit ALU (Verilog) – from RTL to Logic Synthesis (Cadence Genus, 45 nm)
 
-ALU tổ hợp 8-bit viết bằng Verilog, gồm khối số học, khối logic/so sánh, testbench mô phỏng và toàn bộ kết quả tổng hợp (netlist, SDC, báo cáo timing/power/area).
+An 8-bit combinational ALU written in Verilog, with an arithmetic unit, a logic/compare unit, a simulation testbench, and the complete synthesis results (netlists, SDC, timing/power/area reports).
 
-<p align="center"><img src="docs/images/01_alu_block.png" width="360" alt="ALU 8-bit block"></p>
-
-## Cấu trúc thư mục
-
-```
-rtl/                 Mã nguồn thiết kế
-  ALU.v              Top module (chọn khối số học / logic, sinh cờ)
-  arith_unit.v       ADD, SUB, MUL, INC, DEC, dịch trái/phải (+ full adder, subtractor, multiplier, shifter)
-  logic_unit.v       COMPARE, AND, OR, XOR, NOT A, NOT B (+ bộ so sánh 8-bit)
+<p align="center"><img src="docs/images/01_alu_block.png" width="360" alt="8-bit ALU block"></p>
+Repository structure
+rtl/                     Design source code
+  ALU.v                  Top module (selects arithmetic / logic unit, generates flags)
+  arith_unit.v           ADD, SUB, MUL, INC, DEC, shift left/right
+                         (+ full adder, subtractor, multiplier, shifter)
+  logic_unit.v           COMPARE, AND, OR, XOR, NOT A, NOT B (+ 8-bit comparator)
 tb/
-  tb_ALU.v           Testbench (có $monitor + dump VCD)
-  run_sim.sh         Chạy mô phỏng (xrun hoặc iverilog)
-docs/images/        Sơ đồ khối, schematic, waveform, báo cáo (dùng trong README)
+  tb_ALU.v               Testbench ($monitor + VCD dump)
+  run_sim.sh             Run simulation (xrun or iverilog)
+docs/images/             Block diagrams, schematics, waveforms, reports (used in this README)
 synthesis/
-  sdc/ALU_sdc.sdc    Ràng buộc thời gian
-  scripts/alu_synth.tcl  Luồng tổng hợp Genus
-  outputs/           Netlist generic & mapped (.v) + SDC
-  reports/           timing, power, area, check_design, timing_lint
-```
+  sdc/ALU_sdc.sdc        Timing constraints
+  scripts/alu_synth.tcl  Genus synthesis flow
+  outputs/               Generic & mapped netlists (.v) + SDC
+  reports/               timing, power, area, check_design, timing_lint
+Interface
+Port	Width	Description
+in_a, in_b	WIDTH (default 8)	Operands
+input_carry	1	Carry/borrow in (also the bit shifted in for shift operations)
+alu_opcode	4	Operation code (see table below)
+alu_out	WIDTH	Result
+alu_out_flag	5	[0] zero, [1] A>B, [2] A=B, [3] A<B, [4] carry/overflow
+Opcode table
 
-## Giao diện
+alu_opcode[3] = 0 → arithmetic unit, = 1 → logic unit.
 
-| Cổng | Rộng | Mô tả |
-|---|---|---|
-| `in_a`, `in_b` | WIDTH (mặc định 8) | Toán hạng |
-| `input_carry` | 1 | Carry/borrow vào (và bit đưa vào khi dịch) |
-| `alu_opcode` | 4 | Mã lệnh (bảng dưới) |
-| `alu_out` | WIDTH | Kết quả |
-| `alu_out_flag` | 5 | `[0]` zero, `[1]` A>B, `[2]` A=B, `[3]` A<B, `[4]` carry/overflow |
+Opcode	Operation	Notes
+0000	ADD	A + B + cin, flag [4] = carry out
+0001	SUB	A − B − bin
+0010	MUL	4×4-bit multiply (uses A[3:0], B[3:0]), flag [4] = overflow (result wider than 4 bits)
+0011	INC	A + 1 + cin
+0100	DEC	A − 1 − bin
+0101	SHL	Shift left, shifted-in bit = input_carry, flag [4] = MSB shifted out
+0110	SHR	Shift right, shifted-in bit = input_carry, flag [4] = LSB shifted out
+1000	COMPARE	alu_out = 1 if A = B; GT/EQ/LT flags are always updated
+1001	AND	A & B
+1010	OR	A | B
+1011	XOR	A ^ B
+1100	NOT A	~A
+1101	NOT B	~B
+Architecture
 
-## Bảng opcode
+Top-level view: alu_opcode[3] selects between the arithmetic and logic units; alu_opcode[2:0] selects the operation inside the chosen unit.
 
-`alu_opcode[3]` = 0 → khối số học, = 1 → khối logic.
+Show Image
 
-| Opcode | Lệnh | Ghi chú |
-|---|---|---|
-| `0000` | ADD | `A + B + cin`, cờ [4] = carry out |
-| `0001` | SUB | `A − B − bin` |
-| `0010` | MUL | Nhân 4×4 bit (dùng `A[3:0]`, `B[3:0]`), cờ [4] = overflow (kết quả > 4 bit) |
-| `0011` | INC | `A + 1 + cin` |
-| `0100` | DEC | `A − 1 − bin` |
-| `0101` | SHL | Dịch trái, bit vào = `input_carry`, cờ [4] = bit MSB bị đẩy ra |
-| `0110` | SHR | Dịch phải, bit vào = `input_carry`, cờ [4] = bit LSB bị đẩy ra |
-| `1000` | COMPARE | `alu_out = 1` nếu A = B; cờ GT/EQ/LT luôn được cập nhật |
-| `1001` | AND | `A & B` |
-| `1010` | OR | `A \| B` |
-| `1011` | XOR | `A ^ B` |
-| `1100` | NOT A | `~A` |
-| `1101` | NOT B | `~B` |
+Arithmetic unit (ADD, SUB, MUL, INC, DEC, SHL/SHR) and logic unit (COMPARE, AND, OR, XOR, NOT A, NOT B):
 
-## Kiến trúc
+Show Image Show Image
 
-Sơ đồ tổng thể: `alu_opcode[3]` chọn giữa khối số học và khối logic; `alu_opcode[2:0]` chọn phép toán bên trong khối.
+Low-level blocks
+8-bit ripple-carry adder	8-bit ripple-borrow subtractor
+Show Image	Show Image
 
-![ALU top](docs/images/02_alu_top_schematic.png)
-
-**Khối số học** (ADD, SUB, MUL, INC, DEC, SHL/SHR) và **khối logic** (COMPARE, AND, OR, XOR, NOT A, NOT B):
-
-![Arithmetic unit](docs/images/03_arith_unit_schematic.png)
-![Logic unit](docs/images/04_logic_unit_schematic.png)
-
-### Các khối mức thấp
-
-| Bộ cộng ripple-carry 8-bit | Bộ trừ ripple-borrow 8-bit |
-|---|---|
-| ![adder](docs/images/05_ripple_adder_8bit.png) | ![subtractor](docs/images/06_ripple_subtractor_8bit.png) |
-
-**Bộ nhân mảng 4×4:**
+4×4 array multiplier:
 
 <p align="center"><img src="docs/images/07_multiplier_4bit.png" width="520" alt="4-bit array multiplier"></p>
 
-**Bộ so sánh 8-bit** (chuỗi 8 bộ so sánh 1-bit, tạo cờ GT/EQ/LT):
+8-bit comparator (a chain of eight 1-bit comparators producing the GT/EQ/LT flags):
 
-![comparator](docs/images/08_comparator_8bit.png)
+Show Image
 
-## Kết quả mô phỏng
+Simulation results
 
-Dạng sóng tham chiếu (ADD, SUB, MUL, INC, DEC, SHL, SHR, COMPARE):
+Reference waveform (ADD, SUB, MUL, INC, DEC, SHL, SHR, COMPARE):
 
-![reference waveform](docs/images/09_waveform_reference.png)
+Show Image
 
-Dạng sóng mô phỏng thực tế từ `tb_ALU.v`:
+Actual simulation waveform from tb_ALU.v:
 
-![simulation waveform](docs/images/10_waveform_simulation.png)
+Show Image
 
-## Chạy mô phỏng
-
-```bash
+Running the simulation
+bash
 ./tb/run_sim.sh
-# hoặc Cadence:  xrun rtl/ALU.v tb/tb_ALU.v -access +rwc -64bit
-# hoặc Icarus :  iverilog -g2005 -o sim.out rtl/ALU.v tb/tb_ALU.v && vvp sim.out
-```
-Sóng được ghi ra `dump.vcd` (xem bằng GTKWave/SimVision).
+# or Cadence:  xrun rtl/ALU.v tb/tb_ALU.v -access +rwc -64bit
+# or Icarus :  iverilog -g2005 -o sim.out rtl/ALU.v tb/tb_ALU.v && vvp sim.out
 
-## Kết quả tổng hợp (Genus 21.12, PVT_1P32V_0C)
+The waveform is written to dump.vcd (view it with GTKWave/SimVision).
 
-| Chỉ tiêu | Giá trị |
-|---|---|
-| Số cell | 338 |
-| Diện tích | 517.788 µm² |
-| Công suất tổng | ≈ 247.6 µW (leakage 45 nW, internal 141.5 µW, switching 106 µW) |
-| Ràng buộc | Virtual clock 0.5 ns, input/output delay 0.1 ns |
-| Timing (in→out) | MET, slack +22 ps (đường dài nhất `in_b[0]` → `alu_out_flag[4]`) |
+Synthesis results (Genus 21.12, PVT_1P32V_0C)
+Metric	Value
+Cell count	338
+Area	517.788 µm²
+Total power	≈ 247.6 µW (leakage 45 nW, internal 141.5 µW, switching 106 µW)
+Constraints	Virtual clock 0.5 ns, input/output delay 0.1 ns
+Timing (in→out)	MET, slack +22 ps (critical path in_b[0] → alu_out_flag[4])
+<details><summary>Timing and power reports (images)</summary>
 
-<details><summary>Báo cáo timing và power (ảnh)</summary>
-
-![timing](docs/images/11_timing_report.png)
-![power](docs/images/13_power_report.png)
+Show Image Show Image
 
 </details>
 
-Chạy lại tổng hợp: chuẩn bị thư viện `.lib` (không đưa lên repo), rồi `cd synthesis && genus -f scripts/alu_synth.tcl`.
+To re-run synthesis: provide the .lib technology libraries (not included in this repo), then run cd synthesis && genus -f scripts/alu_synth.tcl.
 
-## Vấn đề đã biết / hướng cải tiến
+Known issues / possible improvements
+fadder_8bit and fsubtrator_8bit have a trailing comma at the end of the port list (output cout,) – strict Verilog compilers will report an error.
+The INC/DEC carry flag [4] is taken from the ADD/SUB units (add_cf/sub_cf) instead of inc_cf/dec_cf, so it may be wrong.
+INC/DEC also add/subtract input_carry (e.g. 10+1+1 = 12), while the testbench comment expects 11.
+The testbench is not self-checking – it only prints results for visual inspection.
+The adder is ripple-carry; a carry-lookahead adder could improve timing.
+Tools
 
-- `fadder_8bit` và `fsubtrator_8bit` có dấu phẩy thừa ở cuối danh sách cổng (`output cout,`) – một số trình biên dịch Verilog nghiêm ngặt sẽ báo lỗi.
-- Cờ [4] của INC/DEC đang lấy từ `add_cf`/`sub_cf` của khối ADD/SUB thay vì `inc_cf`/`dec_cf`, nên có thể sai.
-- INC/DEC cộng/trừ thêm `input_carry` (ví dụ 10+1+1 = 12), trong khi comment testbench ghi kỳ vọng 11.
-- Testbench chưa tự kiểm tra (self-checking) – hiện chỉ in ra để quan sát.
-- Bộ cộng ripple-carry; có thể thay bằng carry-lookahead để cải thiện timing.
-
-## Công cụ
-
-Cadence Genus 21.12 (tổng hợp), Cadence Xcelium 22.03 (mô phỏng), thư viện GPDK045 / OSU FreePDK 45 nm.
+Cadence Genus 21.12 (synthesis), Cadence Xcelium 22.03 (simulation), GPDK045 / OSU FreePDK 45 nm libraries.
