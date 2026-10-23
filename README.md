@@ -1,3 +1,7 @@
+## Team and my role
+Team project (3 members). RTL design and testbench: [Dinh Bao and Dat]. 
+My role: Logic synthesis
+
 # 8-bit ALU (Verilog) – from RTL to Logic Synthesis (Cadence Genus, 45 nm)
 
 An 8-bit combinational ALU written in Verilog, with an arithmetic unit, a logic/compare unit, a simulation testbench, and the complete synthesis results (netlists, SDC, timing/power/area reports).
